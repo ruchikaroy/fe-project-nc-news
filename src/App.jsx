@@ -7,11 +7,11 @@ function App() {
   return (
     <>
       <Header />
-      <Grid templateAreas={`"nav nav" " main main"`}>
-        <GridItem area="nav" bg="coral">
+      <Grid templateAreas={`"nav nav" " main main"`} padding="10px">
+        <GridItem area="nav">
           <NavBar />
         </GridItem>
-        <GridItem area="main">
+        <GridItem area="main" bg="">
           <Routes>
             <Route path="/" element={<ArticlesList />} />
             {/* <Route path="/users" element={<UsersPage />} />
