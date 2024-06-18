@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Heading, Text, Box, Image } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import CommentsPage from "./CommentsPage";
 
 function ArticleDetailPage() {
   const { id } = useParams();
@@ -10,6 +11,7 @@ function ArticleDetailPage() {
 
   useEffect(() => {
     if (id) {
+      console.log(id);
       setIsLoading(true);
 
       axios
@@ -44,6 +46,7 @@ function ArticleDetailPage() {
       </Text>
       <Image src={article.article_img_url} alt={article.title} />
       <Text mt={4}>{article.body}</Text>
+      <CommentsPage id={id} />
     </Box>
   );
 }
