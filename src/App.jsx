@@ -3,6 +3,8 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import ArticlesList from "./components/ArticlesList";
+import ArticleDetailPage from "./components/ArticleDetailPage";
+
 function App() {
   return (
     <>
@@ -14,6 +16,8 @@ function App() {
         <GridItem area="main" bg="">
           <Routes>
             <Route path="/" element={<ArticlesList />} />
+            <Route path="article/:id" element={<ArticleDetailPage />} />
+
             {/* <Route path="/users" element={<UsersPage />} />
             <Route path="/topics" element={<TopicsPage />} /> */}
           </Routes>
