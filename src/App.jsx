@@ -18,7 +18,6 @@ function App() {
           <Routes>
             <Route path="/" element={<ArticlesList />} />
             <Route path="article/:id" element={<ArticleDetailPage />} />
-            <Route path="article/:id/comments" element={<CommentsPage />} />
 
             {/* <Route path="/users" element={<UsersPage />} />
             <Route path="/topics" element={<TopicsPage />} /> */}

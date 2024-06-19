@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Heading, Text, Box, Image } from "@chakra-ui/react";
+import { Heading, Text, Box, Image, Divider } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-import { Divider } from "@chakra-ui/react";
 
 function CommentsPage() {
   const { id } = useParams();
@@ -11,18 +10,15 @@ function CommentsPage() {
 
   useEffect(() => {
     if (!id) {
-      console.log("article id is not defined", id);
       setIsLoading(false);
       return;
     }
-    console.log("Fetching comments for article ID:", id);
 
     setIsLoading(true);
 
     axios
       .get(`https://news-api-ibvn.onrender.com/api/articles/${id}/comments`)
       .then((response) => {
-        console.log("Response:", response);
         setComments(response.data.comments);
         setIsLoading(false);
       })
@@ -38,7 +34,13 @@ function CommentsPage() {
 
   return (
     <>
-      <Heading as="h3" size="lg" marginTop="20px" textDecor="underline">
+      <Heading
+        as="h3"
+        size="lg"
+        marginTop="20px"
+        textDecor="underline"
+        marginLeft="9px"
+      >
         Read Comments
       </Heading>
       {comments.map((comment) => (
