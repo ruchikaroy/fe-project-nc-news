@@ -5,6 +5,7 @@ import { FaThumbsDown } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import CommentsPage from "./CommentsPage";
+import CommentForm from "./CommentForm";
 
 function ArticleDetailPage() {
   const { id } = useParams();
@@ -110,6 +111,7 @@ function ArticleDetailPage() {
         </Button>{" "}
       </Flex>
       <CommentsPage id={id} />
+      <CommentForm id={id} />
     </Box>
   );
 }
