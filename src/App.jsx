@@ -7,27 +7,38 @@ import ArticleDetailPage from "./components/ArticleDetailPage";
 import { useContext } from "react";
 import { UserContext } from "./contexts/UserContext";
 import { useState } from "react";
-// import Topics from "./components/Topics";
 import ArticleByTopic from "./components/ArticleByTopic";
+import { useSearchParams } from "react-router-dom";
 
 function App() {
   const user = useContext(UserContext);
   const [topic, setTopic] = useState("");
-  console.log(topic);
+  const [searchParams, setSearchParams] = useSearchParams();
+
   return (
     <>
       <Header user={user} />
-      <Grid templateAreas={`"nav nav" " main main"`} padding="10px">
+      <Grid
+        templateAreas={`"nav nav" " main main"`}
+        padding="10px"
+        bg="#FFDAB9"
+      >
         <GridItem area="nav">
           <NavBar
             onSelectTopic={(topic) => {
               setTopic(topic);
             }}
+            setSearchParams={setSearchParams}
           />
         </GridItem>
         <GridItem area="main" bg="">
           <Routes>
-            <Route path="/" element={<ArticlesList topic={topic} />} />
+            <Route
+              path="/"
+              element={
+                <ArticlesList topic={topic} searchParams={searchParams} />
+              }
+            />
             <Route
               path="article/:id"
               element={<ArticleDetailPage user={user} />}

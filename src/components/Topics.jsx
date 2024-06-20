@@ -35,7 +35,7 @@ function Topics({ onSelectTopic }) {
               isActive={isOpen}
               as={Button}
               rightIcon={<ChevronDownIcon />}
-              fontSize="3xl"
+              fontSize="20px"
             >
               {isOpen ? "Topics" : "Topics"}
             </MenuButton>

@@ -1,12 +1,18 @@
-import { Heading, Text } from "@chakra-ui/react";
+import { Heading, Text, Flex, Box, Spacer } from "@chakra-ui/react";
+import { FaUserAlt } from "react-icons/fa";
 
 function Header({ user }) {
   return (
     <>
-      <Heading as="h1" size="4xl" noOfLines={1} textAlign="center">
-        NC News
-      </Heading>
-      <Text>Logged In User: {user.user}</Text>
+      <Flex align="center" padding="10px">
+        <Heading size="xl">NC News</Heading>
+        <Spacer />
+        <Flex fontSize="2lg" align="center">
+          <Text>Logged in</Text>
+          <Box as={FaUserAlt} mx="2" />
+          <Text>{user.user}</Text>
+        </Flex>
+      </Flex>
     </>
   );
 }
