@@ -1,12 +1,31 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Heading, Text, Box, Image, Divider } from "@chakra-ui/react";
+import { Heading, Text, Box, Divider, Button } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
-function CommentsPage() {
+function CommentsPage({ user }) {
   const { id } = useParams();
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const handleDelete = (commentId) => {
+    const originalComments = [...comments];
+    setComments(comments.filter((comment) => comment.comment_id !== commentId));
+    axios
+      .delete(`https://news-api-ibvn.onrender.com/api/comments/${commentId}`)
+      .catch((error) => {
+        if (error) {
+          setComments(originalComments);
+        }
+      })
+      .then((response) => {
+        alert("Comment deleted successfully!");
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("Oops, comment not deleted!");
+      });
+  };
 
   useEffect(() => {
     if (!id) {
@@ -50,6 +69,11 @@ function CommentsPage() {
             Dated: {new Date(comment.created_at).toLocaleDateString()}
           </Text>
           <Text fontSize="sm">{comment.body}</Text>
+          {comment.author === user.user && (
+            <Button onClick={() => handleDelete(comment.comment_id)}>
+              Delete
+            </Button>
+          )}
           <Divider orientation="horizontal" borderColor="#68cf8a" />
         </Box>
       ))}
