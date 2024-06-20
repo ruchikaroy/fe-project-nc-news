@@ -7,8 +7,9 @@ import axios from "axios";
 import CommentsPage from "./CommentsPage";
 import CommentForm from "./CommentForm";
 
-function ArticleDetailPage() {
+function ArticleDetailPage({ user }) {
   const { id } = useParams();
+
   const [article, setArticle] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -110,7 +111,7 @@ function ArticleDetailPage() {
           <FaThumbsDown />
         </Button>{" "}
       </Flex>
-      <CommentsPage id={id} />
+      <CommentsPage id={id} user={user} />
       <CommentForm id={id} />
     </Box>
   );
