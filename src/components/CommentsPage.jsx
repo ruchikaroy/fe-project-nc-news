@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Heading, Text, Box, Divider, Button } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
+import CommentForm from "./CommentForm";
 
 function CommentsPage({ user }) {
   const { id } = useParams();
@@ -77,6 +78,7 @@ function CommentsPage({ user }) {
           <Divider orientation="horizontal" borderColor="#68cf8a" />
         </Box>
       ))}
+      <CommentForm comments={comments} setComments={setComments} user={user} />
     </>
   );
 }
