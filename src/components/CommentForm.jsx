@@ -12,26 +12,31 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-function CommentForm() {
-  //const [name, setName] = useState("");
-  //const [body, setBody] = useState("");
+function CommentForm({ comments, setComments, user }) {
   const { register, handleSubmit, reset } = useForm();
   const { id } = useParams();
 
   const onSubmit = (data) => {
-    console.log(data);
+    const originalComments = [...comments];
+    const commentToAdd = {
+      comment_id: comments.length + 1,
+      body: data.body,
+      author: user.user,
+      created_at: new Date(),
+    };
+    setComments([...comments, commentToAdd]);
     axios
       .post(
         `https://news-api-ibvn.onrender.com/api/articles/${id}/comments`,
         data
       )
       .then((response) => {
-        console.log(response.data);
         alert("Comment posted successfully!");
       })
       .catch((error) => {
         console.log(error.data);
         alert("Failed to post comment.");
+        setComments(originalComments);
       });
   };
 

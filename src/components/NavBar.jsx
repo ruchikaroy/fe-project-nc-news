@@ -8,10 +8,11 @@ import {
   MenuItem,
   Button,
 } from "@chakra-ui/react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
 
-function NavBar() {
+import { Link } from "react-router-dom";
+import Topics from "./Topics";
+
+function NavBar({ onSelectTopic }) {
   return (
     <HStack spacing={4} p={4} bg="gray.100" padding="10px" borderRadius={10}>
       <Link to="/">
@@ -22,24 +23,7 @@ function NavBar() {
       <Text fontSize="3xl" cursor="pointer">
         Users
       </Text>
-      <Menu>
-        <MenuButton
-          as={Button}
-          rightIcon={<ChevronDownIcon />}
-          fontSize="3xl"
-          bg="transparent"
-          fontWeight="normal"
-          _hover={{ bg: "gray.200" }}
-          _active={{ bg: "gray.300" }}
-        >
-          Topics
-        </MenuButton>
-        <MenuList>
-          <MenuItem>Coding</MenuItem>
-          <MenuItem>Football</MenuItem>
-          <MenuItem>Cooking</MenuItem>
-        </MenuList>
-      </Menu>
+      <Topics onSelectTopic={onSelectTopic} />
     </HStack>
   );
 }

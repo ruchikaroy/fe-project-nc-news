@@ -112,7 +112,6 @@ function ArticleDetailPage({ user }) {
         </Button>{" "}
       </Flex>
       <CommentsPage id={id} user={user} />
-      <CommentForm id={id} />
     </Box>
   );
 }
