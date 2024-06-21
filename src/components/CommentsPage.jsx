@@ -3,29 +3,24 @@ import { useEffect, useState } from "react";
 import { Heading, Text, Box, Divider, Button } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import CommentForm from "./CommentForm";
+import { deleteComment, getArticleCommenstById } from "../api";
 
 function CommentsPage({ user }) {
   const { id } = useParams();
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
 
   const handleDelete = (commentId) => {
     const originalComments = [...comments];
     setComments(comments.filter((comment) => comment.comment_id !== commentId));
-    axios
-      .delete(`https://news-api-ibvn.onrender.com/api/comments/${commentId}`)
-      .catch((error) => {
-        if (error) {
-          setComments(originalComments);
-        }
-      })
-      .then((response) => {
-        alert("Comment deleted successfully!");
-      })
-      .catch((error) => {
-        console.log(error);
-        alert("Oops, comment not deleted!");
-      });
+    deleteComment(commentId).then(({ error }) => {
+      if (error) {
+        setError(error);
+        setComments(originalComments);
+      }
+      //alert("Comment deleted successfully!");
+    });
   };
 
   useEffect(() => {
@@ -33,23 +28,19 @@ function CommentsPage({ user }) {
       setIsLoading(false);
       return;
     }
-
-    setIsLoading(true);
-
-    axios
-      .get(`https://news-api-ibvn.onrender.com/api/articles/${id}/comments`)
-      .then((response) => {
-        setComments(response.data.comments);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching comments:", error);
-        setIsLoading(false);
-      });
+    getArticleCommenstById(id).then(({ data, error, isLoading }) => {
+      setComments(data);
+      setIsLoading(isLoading);
+      setError(error);
+    });
   }, [id]);
 
   if (isLoading) {
     return <Text>Loading...</Text>;
+  }
+
+  if (error) {
+    return <Text color="red">Sorry! An error occurred</Text>;
   }
 
   return (

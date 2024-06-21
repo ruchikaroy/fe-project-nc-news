@@ -9,6 +9,7 @@ import { UserContext } from "./contexts/UserContext";
 import { useState } from "react";
 import ArticleByTopic from "./components/ArticleByTopic";
 import { useSearchParams } from "react-router-dom";
+import MissingRoute from "./components/MissingRoute";
 
 function App() {
   const user = useContext(UserContext);
@@ -45,8 +46,11 @@ function App() {
             />
             <Route
               path="/topic/:slug"
-              element={<ArticleByTopic topic={topic} />}
+              element={
+                <ArticleByTopic topic={topic} searchParams={searchParams} />
+              }
             />
+            <Route path="*" element={<MissingRoute />} />
             {/* <Route path="/users" element={<UsersPage />} /> */}
           </Routes>
         </GridItem>

@@ -1,41 +1,33 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import ArticleCard from "./ArticleCard";
 import { SimpleGrid, Text } from "@chakra-ui/react";
-
+import { getAllArticles } from "../api";
 
 function ArticlesList({ topic, searchParams }) {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoding] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    setIsLoding(true);
-    axios
-      .get(`https://news-api-ibvn.onrender.com/api/articles`, {
-        params: {
-          topic: topic,
-          sort_by: searchParams.get("sort_by"),
-          direction: searchParams.get("direction"),
-        },
-      })
-      .then((response) => {
-        if (response.data.articles) {
-          setArticles(response.data.articles);
-          setIsLoding(false);
-        } else {
-          setArticles([]);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        setArticles([]);
-      });
+    getAllArticles(topic, searchParams).then(({ data, error, isLoading }) => {
+      setArticles(data);
+      setIsLoding(isLoading);
+      setError(error);
+    });
   }, [topic, searchParams.get("sort_by"), searchParams.get("direction")]);
 
   if (isLoading) {
     return (
       <Text fontSize="2xl" fontWeight="bold">
         Loading...
+      </Text>
+    );
+  }
+
+  if (error) {
+    return (
+      <Text fontSize="2xl" fontWeight="bold" color="red">
+        {message}
       </Text>
     );
   }
