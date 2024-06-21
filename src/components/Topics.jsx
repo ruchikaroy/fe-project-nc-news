@@ -10,21 +10,26 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { getTopics } from "../api";
 
 function Topics({ onSelectTopic }) {
   const [topics, setTopics] = useState([]);
+  const [error, setError] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("https://news-api-ibvn.onrender.com/api/topics")
-      .then((response) => {
-        setTopics(response.data.topics);
-      })
-      .catch((error) => {
-        console.log(error);
-        setTopics([]);
-      });
+    getTopics().then(({ data, error }) => {
+      setTopics(data);
+      setError(error);
+    });
   }, []);
+
+  if (error) {
+    return (
+      <Text fontSize="2xl" fontWeight="bold" color="red">
+        Sorry! an error has occurred whilst fetching topics.
+      </Text>
+    );
+  }
 
   return (
     <>

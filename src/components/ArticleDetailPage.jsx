@@ -3,65 +3,41 @@ import { Heading, Text, Box, Image, Button, Flex } from "@chakra-ui/react";
 import { FaThumbsUp } from "react-icons/fa";
 import { FaThumbsDown } from "react-icons/fa";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import CommentsPage from "./CommentsPage";
-import CommentForm from "./CommentForm";
+import { getArticlesById, patchArticleById } from "../api";
 
 function ArticleDetailPage({ user }) {
   const { id } = useParams();
-
   const [article, setArticle] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
 
   const handleIncrementVotes = () => {
     const originalArticle = { ...article };
     setArticle({ ...article, votes: article.votes + 1 });
-    axios
-      .patch(
-        `https://news-api-ibvn.onrender.com/api/articles/${article.article_id}`,
-        {
-          inc_votes: 1,
-        }
-      )
-      .then(response)
-      .catch((error) => {
-        if (error) {
-          setArticle(originalArticle);
-        }
-      });
+    patchArticleById(article.article_id, 1).then(({ error }) => {
+      if (error) {
+        setArticle(originalArticle);
+      }
+    });
   };
 
   const handleDecrementVotes = () => {
     setArticle({ ...article, votes: article.votes - 1 });
-    axios
-      .patch(
-        `https://news-api-ibvn.onrender.com/api/articles/${article.article_id}`,
-        {
-          inc_votes: -1,
-        }
-      )
-      .then(response)
-      .catch((error) => {
-        if (error) {
-          setArticle(originalArticle);
-        }
-      });
+    patchArticleById(article.article_id, -1).then(({ error }) => {
+      if (error) {
+        setArticle(originalArticle);
+      }
+    });
   };
 
   useEffect(() => {
     if (id) {
-      setIsLoading(true);
-
-      axios
-        .get(`https://news-api-ibvn.onrender.com/api/articles/${id}`)
-        .then((res) => {
-          setArticle(res.data.article);
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          console.log(error);
-          setIsLoading(false);
-        });
+      getArticlesById(id).then(({ data, error, isLoading }) => {
+        setArticle(data);
+        setIsLoading(isLoading);
+        setError(error);
+      });
     } else {
       setIsLoading(false);
     }
@@ -75,8 +51,16 @@ function ArticleDetailPage({ user }) {
     );
   }
 
+  if (error) {
+    return (
+      <Text fontSize="2xl" fontWeight="bold" color="red">
+        Sorry! an error has occurred.
+      </Text>
+    );
+  }
+
   return (
-    <Box padding="10px">
+    <Box padding="10px" bg="white" marginTop="10px" borderRadius="10px">
       <Heading>{article.title}</Heading>
       <Text>
         By {article.author} on{" "}

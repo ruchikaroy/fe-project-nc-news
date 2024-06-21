@@ -9,12 +9,14 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { useParams } from "react-router-dom";
+import { postComment } from "../api.js";
+import { useState } from "react";
 
 function CommentForm({ comments, setComments, user }) {
   const { register, handleSubmit, reset } = useForm();
   const { id } = useParams();
+  const [error, setError] = useState("");
 
   const onSubmit = (data) => {
     const originalComments = [...comments];
@@ -25,20 +27,19 @@ function CommentForm({ comments, setComments, user }) {
       created_at: new Date(),
     };
     setComments([...comments, commentToAdd]);
-    axios
-      .post(
-        `https://news-api-ibvn.onrender.com/api/articles/${id}/comments`,
-        data
-      )
-      .then((response) => {
-        alert("Comment posted successfully!");
-      })
-      .catch((error) => {
-        console.log(error.data);
-        alert("Failed to post comment.");
+
+    postComment(id, data).then(({ error }) => {
+      if (error) {
+        setError(error);
         setComments(originalComments);
-      });
+      }
+      //alert("Comment posted successfully!");
+    });
   };
+
+  if (error) {
+    return <Text color="red">Sorry! An error occurred</Text>;
+  }
 
   return (
     <>

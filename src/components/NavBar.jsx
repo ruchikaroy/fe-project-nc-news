@@ -17,7 +17,7 @@ function NavBar({ onSelectTopic, setSearchParams }) {
   return (
     <HStack spacing={4} p={4} bg="gray.100" padding="10px" borderRadius={10}>
       <Menu>
-        <Link to="/">
+        <Link to="/" bg="#FFDAB9">
           <MenuButton as={Button} fontSize="20px">
             Home
           </MenuButton>

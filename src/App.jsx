@@ -45,7 +45,9 @@ function App() {
             />
             <Route
               path="/topic/:slug"
-              element={<ArticleByTopic topic={topic} />}
+              element={
+                <ArticleByTopic topic={topic} searchParams={searchParams} />
+              }
             />
             {/* <Route path="/users" element={<UsersPage />} /> */}
           </Routes>
