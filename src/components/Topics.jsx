@@ -8,25 +8,34 @@ import {
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { getTopics } from "../api";
 
 function Topics({ onSelectTopic }) {
   const [topics, setTopics] = useState([]);
   const [error, setError] = useState([]);
+  const [isLoading, setIsLoding] = useState(true);
 
   useEffect(() => {
-    getTopics().then(({ data, error }) => {
+    getTopics().then(({ data, error, isLoading }) => {
       setTopics(data);
       setError(error);
+      setIsLoding(isLoading);
     });
   }, []);
 
+  if (isLoading) {
+    return (
+      <Text fontSize="2xl" fontWeight="bold">
+        Loading...
+      </Text>
+    );
+  }
+
   if (error) {
     return (
-      <Text fontSize="2xl" fontWeight="bold" color="red">
-        Sorry! an error has occurred whilst fetching topics.
+      <Text fontSize="2xl" fontWeight="bold">
+        Sorry topic not found!
       </Text>
     );
   }

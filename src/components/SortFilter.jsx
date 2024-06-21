@@ -10,7 +10,6 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 
 function SortFilter({ setSearchParams }) {
   const handleSortBySelection = (sortBy) => {
-    console.log(sortBy);
     setSearchParams((newParams) => {
       newParams.set("sort_by", sortBy);
       return newParams;
@@ -18,7 +17,6 @@ function SortFilter({ setSearchParams }) {
   };
 
   const handleDirectionSelection = (direction) => {
-    console.log(direction);
     setSearchParams((newParams) => {
       newParams.set("direction", direction);
       return newParams;

@@ -19,7 +19,8 @@ export const getAllArticles = (topic, searchParams) => {
       }
     })
     .catch((error) => {
-      return { data: [], error: error, isLoading: false };
+      console.log(error);
+      return { data: [], error: error.message, isLoading: false };
     });
 };
 

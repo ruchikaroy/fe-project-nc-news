@@ -27,7 +27,7 @@ function ArticlesList({ topic, searchParams }) {
   if (error) {
     return (
       <Text fontSize="2xl" fontWeight="bold" color="red">
-        Sorry! an error has occurred.
+        {message}
       </Text>
     );
   }
