@@ -1,6 +1,6 @@
 # NC NEWS APPLICATION
 
-NC News is a sample project that provides a fully functional core feature set, showcasing a streamlined and efficient initial version.. This application allows users to:
+NC News is a sample project that provides a fully functional core feature set, showcasing a streamlined and efficient initial version. This application allows users to:
 
 - View all articles
 - Filter articles by topics
