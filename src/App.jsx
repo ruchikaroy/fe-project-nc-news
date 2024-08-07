@@ -19,11 +19,7 @@ function App() {
   return (
     <>
       <Header user={user} />
-      <Grid
-        templateAreas={`"nav nav" " main main"`}
-        padding="10px"
-        bg="#FFDAB9"
-      >
+      <Grid templateAreas={`"nav nav" "main main"`} padding="10px" bg="#FFDAB9">
         <GridItem area="nav">
           <NavBar
             onSelectTopic={(topic) => {
