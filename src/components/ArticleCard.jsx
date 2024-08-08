@@ -16,8 +16,9 @@ function ArticleCard({ article }) {
     <Card
       borderRadius={10}
       overflow="hidden"
-      marginTop={5}
+      marginTop={3}
       padding={10}
+      bg="#FFDAB9"
       _hover={{
         transform: "scale(1.03)",
         transition: "transform .15s ease-in",
@@ -28,16 +29,16 @@ function ArticleCard({ article }) {
         <Heading
           noOfLines={1}
           fontSize="2xl"
-          color="grey"
+          color="black"
           _hover={{
             cursor: "thumbnail",
-            color: "#68cf8a",
+            color: "#808080",
           }}
         >
           <Link to={"/article/" + article.article_id}>{article.title}</Link>
         </Heading>
 
-        <Text fontSize="1xl" color="gray.500">
+        <Text fontSize="1xl" color="#404040">
           By {article.author} on{" "}
           {new Date(article.created_at).toLocaleDateString()}
         </Text>

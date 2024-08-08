@@ -50,6 +50,7 @@ function Topics({ onSelectTopic }) {
               as={Button}
               rightIcon={<ChevronDownIcon />}
               fontSize="20px"
+              overflow={"hidden"}
             >
               {isOpen ? "Topics" : "Topics"}
             </MenuButton>

@@ -25,7 +25,12 @@ function SortFilter({ setSearchParams }) {
   return (
     <>
       <Menu>
-        <MenuButton as={Button} rightIcon={<ChevronDownIcon />} fontSize="20px">
+        <MenuButton
+          as={Button}
+          rightIcon={<ChevronDownIcon />}
+          fontSize="20px"
+          overflow={"hidden"}
+        >
           Sort By
         </MenuButton>
         <MenuList>
@@ -39,7 +44,12 @@ function SortFilter({ setSearchParams }) {
         </MenuList>
       </Menu>
       <Menu>
-        <MenuButton as={Button} rightIcon={<ChevronDownIcon />} fontSize="20px">
+        <MenuButton
+          as={Button}
+          rightIcon={<ChevronDownIcon />}
+          fontSize="18px"
+          // overflow={"hidden"}
+        >
           Order By
         </MenuButton>
         <MenuList>

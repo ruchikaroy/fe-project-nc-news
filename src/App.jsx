@@ -18,9 +18,17 @@ function App() {
 
   return (
     <>
-      <Header user={user} />
-      <Grid templateAreas={`"nav nav" "main main"`} padding="10px" bg="#FFDAB9">
-        <GridItem area="nav">
+      <Grid
+        templateAreas={{
+          base: ` "header" "nav" "main"`,
+          lg: ` "header" "nav" "main"`,
+        }}
+        bg="white"
+      >
+        <GridItem area="header" bg="white">
+          <Header user={user} />
+        </GridItem>
+        <GridItem area="nav" bg="white">
           <NavBar
             onSelectTopic={(topic) => {
               setTopic(topic);
@@ -28,7 +36,7 @@ function App() {
             setSearchParams={setSearchParams}
           />
         </GridItem>
-        <GridItem area="main" bg="">
+        <GridItem area="main" bg="white">
           <Routes>
             <Route
               path="/"
